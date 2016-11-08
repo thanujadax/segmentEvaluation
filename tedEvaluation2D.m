@@ -1,6 +1,8 @@
 % input file paths
 % use ted for evaluating 2D segments
 % use copyEachImgIntoSubDir.m to put each 2D image 
+% after creating the outputFile using this script, use readTedOutput to get
+% the per slice normalized error for all sections
 groundTruthDir = '/home/thanuja/RESULTS/cvpr/TED/groundtruth';
 reconstructionDir = '/home/thanuja/RESULTS/cvpr/TED/cnn';
 configurationFile = '/home/thanuja/projects/RESULTS/contours/ted/20161107_isbi000_indexed/ted.conf';
@@ -36,6 +38,11 @@ else
     
     disp(unixCommand);
     status = unix(unixCommand);
+    
+    % append new line
+    fid = fopen(outputFile,'a');
+    fprintf(fid,'\n');
+    fclose(fid);
     
     end
 end
