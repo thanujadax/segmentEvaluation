@@ -6,7 +6,7 @@
 groundTruthDir = '/home/thanuja/RESULTS/cvpr/TED/groundtruth';
 reconstructionDir = '/home/thanuja/RESULTS/cvpr/TED/cnn';
 configurationFile = '/home/thanuja/projects/RESULTS/contours/ted/20161107_isbi000_indexed/ted.conf';
-outputFile = '/home/thanuja/RESULTS/cvpr/TED/cnn/output.txt';
+outputFile = '/home/thanuja/RESULTS/cvpr/TED/cnn/output_30.txt';
 gtType = 'tif';
 rType = 'tif';
 
@@ -22,9 +22,9 @@ reconstructionList(1:2) = [];
 numGT = length(groundTruthList);
 numRec = length(reconstructionList);
 
-if(numGT ~= numRec)
-    error('Number of ground truth images and reconstruction images are not equal!');
-else
+% if(numGT ~= numRec)
+%     error('Number of ground truth images and reconstruction images are not equal!');
+% else
     for i=1:numGT
     % write the full command
     unixCommand = sprintf(...
@@ -45,5 +45,5 @@ else
     fclose(fid);
     
     end
-end
+% end
     
