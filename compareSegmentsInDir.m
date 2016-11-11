@@ -2,20 +2,21 @@ function compareSegmentsInDir()
 
 % the images should be index images (1...K)
 groundTruthDir = '';
-reconstructionsDir = '';
+% groundTruthImg = '/home/thanuja/DATA/ISBI2012/gala/flatfiles/test/probMaps_rfc/020.tif';
+reconstructionsDir = '/home/thanuja/RESULTS/isbi2012/graphcuts/rfc/tryk';
 
-gtType = '';
-rType = '';
+gtType = 'tif';
+rType = 'png';
 
-outputFile = '';
+outputFile = '/home/thanuja/RESULTS/isbi2012/graphcuts/rfc/tryk/evaluation.txt';
 
 gtFileList = dir(fullfile(groundTruthDir,strcat('*.',gtType)));
 rFileList = dir(fullfile(reconstructionsDir,strcat('*.',rType)));
 
 if(length(gtFileList) ~= length(rFileList))
-    error('Number of GT files and reconstructions do not match!!!')
+    disp('Number of GT files and reconstructions do not match!!!')
 else
-    numImg = length(gtFileList);
+    numImg = length(rFileList);
     ri = zeros(numImg,1);
     gce = zeros(numImg,1);
     vi = zeros(numImg,1);
@@ -27,6 +28,7 @@ else
     fprintf(fid,'Normalized RI, GCE, VoI for each image per segment \n');
     for i=1:numImg
         gtLabels = imread(fullfile(groundTruthDir,gtFileList(i).name));
+        % gtLabels = imread(groundTruthImg);
         reconsImg = imread(fullfile(reconstructionsDir,rFileList(i).name));
         [ri(i),gce(i),vi(i)]=compareSegmentations(gtLabels,reconsImg);  
         % get num slices in gt
@@ -44,7 +46,7 @@ else
     gce_n_av = mean(gce_n);
     vi_n_av = mean(vi_n);
     
-    fprintf(fid,'****************************');
+    fprintf(fid,'****************************************');
     fprintf(fid,'Average: RI=%f, GCE=%f, VoI=%f',ri_n_av,gce_n_av,vi_n_av);
     
     
